@@ -8,6 +8,10 @@ def create_app():
 	def wrong_format(e):
 		return jsonify(error = 400, text="Malformed query"), 400
 
+	@app.get("/")
+	def hello():
+		return "Please submit your post-request to https://sumaddress.herokuapp.com/compute_sum"	
+
 	@app.post("/compute_sum")
 	def compute_address_sum():
 		try:
