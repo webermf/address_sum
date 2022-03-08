@@ -15,7 +15,7 @@ def test_endpoint_ok(client):
 	
 	response = client.post("/compute_sum", json  = data, content_type="Application/Json")
 	assert response.status == "200 OK"
-	assert response.get_json().get("result")  == 611
+	assert response.get_json().get("result")  == 8
 
 def test_missing_field_colorKeys(client):
 	
@@ -31,7 +31,7 @@ def test_missing_field_colorKeys(client):
 	
 	response = client.post("/compute_sum", json  = data, content_type="Application/Json")
 	assert response.status == "200 OK"
-	assert response.get_json().get("result")  == 611
+	assert response.get_json().get("result")  == 8
 
 def test_missing_field_meta(client):
 
@@ -44,8 +44,32 @@ def test_missing_field_meta(client):
 	
 	response = client.post("/compute_sum", json  = data, content_type="Application/Json")
 	assert response.status == "200 OK"
-	assert response.get_json().get("result")  == 611
+	assert response.get_json().get("result")  == 8 
 
+def test_value_list_2(client):
+
+	data = {
+		"address": {
+			"colorKeys": ["A", "G", "Z"],
+			"values": [1,2,3]
+		}
+	}	
+	
+	response = client.post("/compute_sum", json  = data, content_type="Application/Json")
+	assert response.status == "200 OK"
+	assert response.get_json().get("result")  == 6 
+
+def test_float_values(client):
+
+	data = {
+		"address": {
+			"colorKeys": ["A", "G", "Z"],
+			"values": [1.0,2.5,3.7]
+		}
+	}	
+	
+	response = client.post("/compute_sum", json  = data, content_type="Application/Json")
+	assert response.status_code == 400 
 
 def test_empty_list(client):
 	
