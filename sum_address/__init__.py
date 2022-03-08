@@ -15,7 +15,10 @@ def create_app():
 	@app.post("/compute_sum")
 	def compute_address_sum():
 		try:
-			return {"result": sum(request.get_json()["address"]["values"])}, 200
+			values = request.get_json()["address"]["values"]
+			value_sum = sum(values)
+			digit_sum = sum([int(d) for d in str(value_sum)])
+			return {"result": digit_sum}, 200
 		except:
 			abort(400)
 
